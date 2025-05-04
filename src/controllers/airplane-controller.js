@@ -34,15 +34,38 @@ async function getAirplanes(req, res) {
 
     return res.status(StatusCodes.OK).json(SuccessResponse);
   } catch (error) {
+    ErrorResponse.error = error;
+    console.log("error***> ", error);
+
+    return res.status(error.statusCode).json(ErrorResponse);
+  }
+}
+
+async function getAirplane(req, res) {
+  try {
+    const Airplane = await AirplaneService.getAirplane(req.params.id);
+    console.log("Airplane", Airplane);
+
+    SuccessResponse.data = Airplane;
+    SuccessResponse.message = SUCCESS_MSG.fetched;
+
+    return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
     return res.status(StatusCodes.EXPECTATION_FAILED).json({
       success: false,
       message: "Exception Occurred!",
       data: {},
-      error: error,
+      error: {
+        message: error.message,
+        name: error.name,
+        stack: error.stack, // optional
+        ...(error.statusCode && { statusCode: error.statusCode })
+      },
     });
   }
 }
 module.exports = {
   createAirplane,
   getAirplanes,
+  getAirplane,
 };

@@ -4,6 +4,7 @@ const router = express.Router();
 const { AirplaneMiddleware } = require("../../middlewares");
 
 router.get("/", AirplaneController.getAirplanes);
+router.get("/:id", AirplaneController.getAirplane);
 router.post("/", AirplaneMiddleware.validateCreateReq, AirplaneController.createAirplane);
 
 module.exports = router;

@@ -1,4 +1,6 @@
 const { LoggerConfig } = require("../config");
+const AppError = require("../utils/errors/app-errors");
+const { StatusCodes } = require("http-status-codes");
 
 class TodoCrudRepository {
   constructor(model) {
@@ -25,7 +27,13 @@ class TodoCrudRepository {
   }
 
   async get(data) {
-    const response = await this.model.finByPk(data);
+    console.log("data", data);
+
+    const response = await this.model.findByPk(data);
+    // console.log('res =>', response);
+    if (!response) {
+      throw new AppError("Not Found", StatusCodes.NOT_FOUND);
+    }
     return response;
   }
 

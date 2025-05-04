@@ -5,13 +5,28 @@ function validateCreateReq(req, res, next) {
   if (!req.body.modelNumber) {
     ErrorResponse.message = "Something went wrong";
     ErrorResponse.error = {
-      explanation: "Model Number not found in the incoming req in the correct form",
+      explanation:
+        "Model Number not found in the incoming req in the correct form",
     };
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
-  }else if (!req.body.capacity) {
+  } else if (!req.body.capacity) {
     ErrorResponse.message = "Something went wrong";
     ErrorResponse.error = {
-      explanation: "Airplane Capacity not found in the incoming req in the correct form",
+      explanation:
+        "Airplane Capacity not found in the incoming req in the correct form",
+    };
+    return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+  }
+
+  next();
+}
+
+function validateGetReq(req, res, next) {
+  if (!req.params.id) {
+    ErrorResponse.message = "Something went wrong";
+    ErrorResponse.error = {
+      explanation:
+        "Airplane id not found in the incoming req in the correct form",
     };
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
   }
@@ -21,4 +36,5 @@ function validateCreateReq(req, res, next) {
 
 module.exports = {
   validateCreateReq,
+  validateGetReq,
 };

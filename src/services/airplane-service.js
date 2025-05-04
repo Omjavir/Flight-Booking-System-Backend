@@ -11,7 +11,7 @@ async function createAirplane(data) {
   } catch (error) {
     console.log("error =>", error);
 
-    if ((error.name == "ValidationError" || "SequelizeUniqueConstraintError")) {
+    if (error.name === "ValidationError" || error.name === "SequelizeUniqueConstraintError"){
       throw new AppError(
         "Cannot create a new Airplane object",
         StatusCodes.INTERNAL_SERVER_ERROR
@@ -35,11 +35,29 @@ async function getAirplanes() {
         StatusCodes.INTERNAL_SERVER_ERROR
       );
     }
-    throw new AppError("Cannot create Todo", StatusCodes.INTERNAL_SERVER_ERROR);
+    throw new AppError("Cannot get Airplanes", StatusCodes.INTERNAL_SERVER_ERROR);
+  }
+}
+
+async function getAirplane(id) {
+  try {
+    const airplane = await airplaneRepository.get(id);
+    return airplane;
+  } catch (error) {
+    console.log("error ==>", error);
+
+    if ((error.statusCode === StatusCodes.NOT_FOUND)) {
+      throw new AppError(
+        `Airplane with id => ${id}, Not Found`,
+        StatusCodes.NOT_FOUND
+      );
+    }
+    throw new AppError("Cannot get Airplane", StatusCodes.INTERNAL_SERVER_ERROR);
   }
 }
 
 module.exports = {
   createAirplane,
   getAirplanes,
+  getAirplane,
 };
