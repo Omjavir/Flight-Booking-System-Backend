@@ -49,11 +49,21 @@ npm install
 npm run dev
 ```
 
-
 ### Initilization of Sequelize
-1. ``` npm install sequelize ```
-2. ``` npm install mysql2 ```
-3. ``` npm install sequelize-cli ```
 
-4. cd inside the folder where your code is then run 
-``` npx sequelize init ```
+1. `npm install sequelize`
+2. `npm install mysql2`
+3. `npm install sequelize-cli`
+
+4. cd inside the folder where your code is then run
+   `npx sequelize init`
+
+For changes in Models:
+
+```
+npx sequelize db:create
+```
+
+```
+npx sequelize db:migrate
+```

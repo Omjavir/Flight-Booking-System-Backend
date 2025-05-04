@@ -1,5 +1,5 @@
-const express = require("express");
 const { ServerConfig, LoggerConfig } = require("./config");
+const express = require("express");
 const app = express();
 const apiRoutes = require("./routes");
 

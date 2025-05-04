@@ -1,17 +1,13 @@
 const { LoggerConfig } = require("../config");
+
 class TodoCrudRepository {
   constructor(model) {
     this.model = model;
   }
 
   async create(data) {
-    try {
-      const response = await this.model.create(data);
-      return response;
-    } catch (error) {
-      LoggerConfig.error("Error creating a todo", { error });
-      throw error;
-    }
+    const response = await this.model.create(data);
+    return response;
   }
 
   async destroy(data) {
@@ -29,37 +25,22 @@ class TodoCrudRepository {
   }
 
   async get(data) {
-    try {
-      const response = await this.model.finByPk(data);
-      return response;
-    } catch (error) {
-      LoggerConfig.error("Error getting a todo", { error });
-      throw error;
-    }
+    const response = await this.model.finByPk(data);
+    return response;
   }
 
   async getAll() {
-    try {
-      const response = await this.model.findAll();
-      return response;
-    } catch (error) {
-      LoggerConfig.error("Error getting a todo", { error });
-      throw error;
-    }
+    const response = await this.model.findAll();
+    return response;
   }
 
   async update(id, data) {
-    try {
-      const response = await this.model.update(data, {
-        where: {
-          id: id,
-        },
-      });
-      return response;
-    } catch (error) {
-      LoggerConfig.error("Error getting a todo", { error });
-      throw error;
-    }
+    const response = await this.model.update(data, {
+      where: {
+        id: id,
+      },
+    });
+    return response;
   }
 }
 
