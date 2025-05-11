@@ -13,17 +13,17 @@ class TodoCrudRepository {
   }
 
   async destroy(data) {
-    try {
-      const response = await this.model.destroy({
-        where: {
-          id: data,
-        },
-      });
-      return response;
-    } catch (error) {
-      LoggerConfig.error("Error deleting a todo", { error });
-      throw error;
+    const response = await this.model.destroy({
+      where: {
+        id: data,
+      },
+    });
+
+    if (!response) {
+      throw new AppError("Not able to find the source", StatusCodes.NOT_FOUND);
     }
+
+    return response;
   }
 
   async get(data) {

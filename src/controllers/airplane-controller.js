@@ -59,13 +59,39 @@ async function getAirplane(req, res) {
         message: error.message,
         name: error.name,
         stack: error.stack, // optional
-        ...(error.statusCode && { statusCode: error.statusCode })
+        ...(error.statusCode && { statusCode: error.statusCode }),
       },
     });
   }
 }
+
+async function deleteAirplane(req, res) {
+  try {
+    const Airplane = await AirplaneService.deleteAirplane(req.params.id);
+    console.log("Airplane", Airplane);
+
+    SuccessResponse.data = Airplane;
+    SuccessResponse.message = SUCCESS_MSG.fetched;
+
+    return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
+    return res.status(StatusCodes.EXPECTATION_FAILED).json({
+      success: false,
+      message: "Exception Occurred!",
+      data: {},
+      error: {
+        message: error.message,
+        name: error.name,
+        stack: error.stack, // optional
+        ...(error.statusCode && { statusCode: error.statusCode }),
+      },
+    });
+  }
+}
+
 module.exports = {
   createAirplane,
   getAirplanes,
   getAirplane,
+  deleteAirplane,
 };

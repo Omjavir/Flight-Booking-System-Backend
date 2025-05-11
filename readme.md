@@ -67,3 +67,24 @@ npx sequelize db:create
 ```
 npx sequelize db:migrate
 ```
+
+
+To create a new Table in DB:
+
+```
+cd src/
+npx sequelize model:generate --name NameOfTable -- attributes attribute:string
+Update the file generated in models folder as per the requirement
+npx sequelize db:migrate
+
+```
+
+To update a existing attribute of Table in DB:
+
+```
+cd src/
+npx sequelize model:generate --name NameOfTable -- attributes attribute:string
+Update the file generated in models folder as per the requirement
+npx sequelize db:migrate
+
+```
